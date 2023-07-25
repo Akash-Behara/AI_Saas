@@ -37,7 +37,6 @@ const CodePage = () => {
     const isLoading = form.formState.isSubmitting
 
     const onSubmitForm = async (values: z.infer<typeof formSchema>) => {
-        console.log('values', values)
         try {
             const userMessage: ChatCompletionRequestMessage = {
                 role: 'user',
@@ -56,7 +55,6 @@ const CodePage = () => {
             router.refresh()
         }
     }
-    console.log('mes', messages)
     return (
         <div>
             <Heading 

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Download, ImageIcon, MessageSquare } from 'lucide-react'
+import { Download, ImageIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 
@@ -16,9 +16,6 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Empty from '@/components/Empty'
 import Loader from '@/components/Loader'
-import { cn } from '@/lib/utils'
-import UserAvatar from '@/components/UserAvatar'
-import BotAvatar from '@/components/BotAvatar'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardFooter } from '@/components/ui/card'
 import Image from 'next/image'
@@ -39,7 +36,6 @@ const ImagePage = () => {
     const isLoading = form.formState.isSubmitting
 
     const onSubmitForm = async (values: z.infer<typeof formSchema>) => {
-        console.log('values', values)
         try {
             setImages([]);
             const response = await axios.post('/api/image', values);

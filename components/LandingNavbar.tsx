@@ -20,7 +20,7 @@ export const LandingNavbar = () => {
         <nav className="p-4 bg-transparent flex items-center justify-between">
             <Link href="/" className="flex items-center">
                 <div className="relative h-8 w-8 mr-4">
-                    <Image src="/aiSaasLogo.png" alt="logo" fill/>
+                    <Image src="/static/img/aiSaasLogo.png" alt="logo" fill/>
                 </div>
                 <h1 className={cn('text-2xl font-bold text-white', font.className)}>Genius</h1>
             </Link>

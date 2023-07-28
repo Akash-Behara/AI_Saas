@@ -20,8 +20,6 @@ const MobileSidebar = ({ apiLimitCount, isPro }: MobileSidebarProps) => {
 
     if(!isMounted) return null
 
-    if(isPro) return null
-
     return (
         <Sheet>
             <SheetTrigger>

@@ -1,4 +1,7 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
+import axios from 'axios';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog'
 import { useProModal } from '@/hooks/use-pro-modal'
 import { Badge } from './ui/badge';
@@ -6,8 +9,11 @@ import { Check, Code, ImageIcon, MessageSquare, MusicIcon, VideoIcon, Zap } from
 import { Card } from './ui/card';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
+import toast from 'react-hot-toast';
 
 const ProModal = () => {
+
+    const [loading, setLoading] = useState(false)
 
     const tools = [
         {label: 'Conversations', icon: MessageSquare, color: 'text-violet-500', bgColor: 'bg-violet-500/10'},
@@ -19,6 +25,18 @@ const ProModal = () => {
 
     const proModal = useProModal();
 
+    const onSubscribe = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get('/api/stripe');
+            window.location.href = response.data.url
+        } catch (error) {
+            console.log("error", error)
+            toast.error("Something went wrong, try again!")
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
             <DialogContent>
@@ -48,7 +66,7 @@ const ProModal = () => {
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
-                    <Button size='lg' variant="premium" className='w-full'>
+                    <Button disabled={loading} onClick={onSubscribe} size='lg' variant="premium" className='w-full'>
                         Upgrade
                         <Zap className='w-4 h-4 ml-2 fill-white'/>
                     </Button>

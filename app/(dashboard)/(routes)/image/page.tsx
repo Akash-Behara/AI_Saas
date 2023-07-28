@@ -19,10 +19,13 @@ import Loader from '@/components/Loader'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardFooter } from '@/components/ui/card'
 import Image from 'next/image'
+import { useProModal } from '@/hooks/use-pro-modal'
 
 const ImagePage = () => {
     const router = useRouter();
     const [images, setImages] = useState<string[]>([])
+
+    const proModal = useProModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -44,9 +47,10 @@ const ImagePage = () => {
             setImages(urls);
             form.reset();
 
-        } catch (error) {
-            //pro model
-            console.log(error)   
+        } catch (error: any) {
+            if(error?.response?.status === 403){
+                proModal.onOpen();
+            }
         } finally {
             router.refresh()
         }
